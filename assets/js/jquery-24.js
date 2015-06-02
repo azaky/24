@@ -32,6 +32,7 @@ $(function() {
 
 	var draggableOptions = {
 		cancel: "input,textarea,select,option",
+		containment: "#arena",
 		start: function(e, ui) {
 			$(this).css('z-index', 1000);
 		},
@@ -166,10 +167,10 @@ $(function() {
 	// reset bubbles!
 	var reset = (function () {
 		var bubbleOffset = [
-			{left: 120, top: 40},
-			{left: 280, top: 40},
-			{left: 120, top: 220},
-			{left: 280, top: 220}
+			{left: 120, top: 50},
+			{left: 280, top: 50},
+			{left: 120, top: 230},
+			{left: 280, top: 230}
 		];
 
 		// hide other bubbles
@@ -227,4 +228,8 @@ $(function() {
 	$('#play, #next-level, #restart').on('click', function() {
 		reset();
 	});
+
+	$('#home').on('click', function() {
+		changeMenu('main-menu');
+	})
 });
