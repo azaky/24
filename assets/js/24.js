@@ -9,6 +9,7 @@ var Game = function(args) {
 	var goal = args && args.goal || 24;
 	var n = args && args.n || 4;
 	var maxNumber = args && args.maxNumber || 10;
+	var epsilon = 1e-5;
 
 	var answer = false, solved = false, fail = false;
 	var bubbles = [];
@@ -95,12 +96,12 @@ var Game = function(args) {
 								}
 
 								// Perform check on all of them
-								possibilities.forEach(function(e) {
-									if (!used[e.value]) {
-										used[e.value] = true;
-										temp.push(e);
+								for (var k = 0; k < possibilities.length; ++k) {
+									if (!used[possibilities[k].value]) {
+										used[possibilities[k].value] = true;
+										temp.push(possibilities[k]);
 									}
-								});
+								}
 							}
 						}
 					}
@@ -113,11 +114,12 @@ var Game = function(args) {
 
 		// Finally, check if goal can be achieved using all numbers
 		var _answer = [];
-		dp[(1 << n) - 1].forEach(function(e) {
-			if (Math.abs(e.value - goal) < 1e-7) {
-				_answer.push(e);
+		var goalmask = (1 << n) - 1;
+		for (var i = 0; i < dp[goalmask].length; ++i) {
+			if (Math.abs(dp[goalmask][i].value - goal) < epsilon) {
+				_answer.push(dp[goalmask][i]);
 			}
-		});
+		}
 		return _answer;
 	});
 
@@ -135,15 +137,6 @@ var Game = function(args) {
 		}
 	});
 
-	// Bind DOM elements.
-	(function() {
-		that.dom = [];
-		for (var i = 0; i < n; ++i) {
-			that.dom[i] = document.getElementById("bubble-" + i);
-
-		}
-	}());
-
 	// Action taken when two bubbles are combined: "Marry" them.
 	this.marry = function(args) {
 		if (this.over()) return;
@@ -154,7 +147,7 @@ var Game = function(args) {
 		}
 
 		var last = bubbles.length;
-		var value;
+		var value, rep;
 		var n1 = bubbles[args.lhs].value;
 		var n2 = bubbles[args.rhs].value;
 
@@ -171,7 +164,7 @@ var Game = function(args) {
 			value = n1 * n2;
 			break;
 		case '/':
-			if (Math.abs(n2) < 1e-7) return;
+			if (Math.abs(n2) < epsilon) return;
 			value = n1 / n2;
 			break;
 		default:
@@ -179,9 +172,24 @@ var Game = function(args) {
 			return;
 		}
 
+		// calculate proper representation
+		rep = value;
+		if (Math.abs(Math.round(rep) - rep) > epsilon) {
+			// just brute force then
+			for (var den = 1; ; ++den) {
+				var num = den * rep;
+				if (Math.abs(Math.round(num) - num) < epsilon) {
+					rep = "" + Math.round(num) + "/" + den;
+					break;
+				}
+			}
+		}
+		rep = "" + rep;
+
 		bubbles.push({
 			i: last,
 			value: value,
+			rep: rep,
 			lhs: args.lhs,
 			rhs: args.rhs,
 			used: false
@@ -253,6 +261,7 @@ var Game = function(args) {
 			bubbles[i] = {
 				i: i,
 				value: numbers[i],
+				rep: numbers[i],
 				used: false
 			}
 		}

@@ -3,114 +3,90 @@
 <head>
 	<meta charset="UTF-8">
 	<title>24</title>
-	<style>
-.box {
-	margin: 20px;
-	padding: 10px;
-}
-.round {
-	font-size: 20pt;
-	padding-left: 40px;
-	padding-right: 40px;
-	height: 100px;
-	width: auto;
-	min-width: 100px;
-	border-radius: 50px;
-	position: absolute;
-	-webkit-transition: width 2s; /* Safari */
-    transition: width 2s ease;
-}
-.round.operator {
-	font-size: 14pt;
-	padding-left: 20px;
-	padding-right: 20px;
-	height: 50px;
-	width: auto;
-	min-width: 50px;
-	border-radius: 25px;
-	/* initially, they are hidden */
-	display: none;
-}
-
-.round.active {
-	color: red;
-	border-color: red;
-}
-	</style>
+	<link rel="stylesheet" type="text/css" href="assets/css/24.css">
 </head>
 <body>
-<!-- 	<div class="box">
-		<input type="number" name="i[]">
-		<input type="number" name="i[]">
-		<input type="number" name="i[]">
-		<input type="number" name="i[]">
-		<button type="button" id="generate">Generate!</button>
-		<button type="button" id="check">Check!</button>
-	</div>
- -->
-	<h1 id="timer">
-		0
-	</h1>
+	<div class="container">
+		<div class="game-info">
+			<div class="pull-left">
+				Time Left
+				<div id="timer" class="score">
+					0
+				</div>
+				<button id="no-solution" class="no-solution" title="Click here if you think current combination is impossible to achieve 24">
+					Unsolvable
+				</button>
+			</div>
 
-	<h1 id="level">
-		0
-	</h1>
+			<div class="center">
+				<div class="logo">
+					24
+				</div>
+			</div>
 
-	<button class="round" id="no-solution">
-		No Solution
-	</button>
+			<div class="pull-right">
+				Score
+				<div id="score" class="score">
+					0
+				</div>
+				<button class="share">
+					Share!
+				</button>
+			</div>
+		</div>
 
-	<div class="arena">
-		<button class="round bubble" id="bubble-0" data-bubble="0">
-			1
-		</button>
+		<div class="game-arena">
+			<button class="round bubble" id="bubble-0" data-bubble="0">
+				1
+			</button>
 
-		<button class="round bubble" id="bubble-1" data-bubble="1">
-			2
-		</button>
+			<button class="round bubble" id="bubble-1" data-bubble="1">
+				2
+			</button>
 
-		<button class="round bubble" id="bubble-2" data-bubble="2">
-			3
-		</button>
+			<button class="round bubble" id="bubble-2" data-bubble="2">
+				3
+			</button>
 
-		<button class="round bubble" id="bubble-3" data-bubble="3">
-			4
-		</button>
+			<button class="round bubble" id="bubble-3" data-bubble="3">
+				4
+			</button>
 
-		<button class="round operator" id="add" data-op="+">
-			+
-		</button>
+			<button class="operator" id="add" data-op="+">
+				+
+			</button>
 
-		<button class="round operator" id="subtract" data-op="-">
-			-
-		</button>
+			<button class="operator" id="subtract" data-op="-">
+				-
+			</button>
 
-		<button class="round operator" id="multiply" data-op="*">
-			x
-		</button>
+			<button class="operator" id="multiply" data-op="*">
+				x
+			</button>
 
-		<button class="round operator" id="divide" data-op="/">
-			/
-		</button>
+			<button class="operator" id="divide" data-op="/">
+				/
+			</button>
+		</div>
 	</div>
 
 	<script type="text/javascript" src="assets/js/24.js"></script>
 	<script src="//code.jquery.com/jquery-2.1.3.min.js" type="text/javascript"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="assets/js/jquery.cssAnimateAuto.min.js" type="text/javascript"></script>
 	<script>
 $(function() {
 	var game = new Game();
 	var operators = ['#add', '#subtract', '#multiply', '#divide'];
 	var offset = [
-		{left: -90, top: 80},
-		{left: -30, top: 100},
-		{left: +30, top: 100},
-		{left: +90, top: 80}
+		{left: -80, top: 50},
+		{left: -27, top: 70},
+		{left: +27, top: 70},
+		{left: +80, top: 50}
 	];
 	var activeOperand = null;
 
 	var showOperators = (function(position) {
+		var above = position.top > 500;
 		$.each(operators, function(i, e) {
 			$(e).show()
 			.offset(position)
@@ -118,10 +94,9 @@ $(function() {
 			.animate({
 				opacity: 1,
 				left: '+=' + offset[i].left,
-				top: '+=' + offset[i].top,
-			}, 500);
+				top: above ? '-=' + (offset[i].top + $(e).height()) : '+=' + offset[i].top,
+			}, 200);
 		});
-		// alert(JSON.stringify(position));
 	});
 
 	var hideOperators = (function() {
@@ -184,7 +159,7 @@ $(function() {
 			"data-bubble-lhs": lhs,
 			"data-bubble-rhs": rhs,
 			"text": $("#bubble-" + lhs).text() + " ... " + $("#bubble-" + rhs).text()
-		}).appendTo('.arena');
+		}).appendTo('.game-arena');
 		dom.offset({
 			left: $("#bubble-" + lhs).offset().left,
 			top: $("#bubble-" + lhs).offset().top
@@ -214,7 +189,7 @@ $(function() {
 
 		var dom = $("#bubble-x");
 		dom.data("bubble", result.i);
-		dom.text(result.value);
+		dom.text(result.rep);
 		dom.attr("id", "bubble-" + result.i);
 
 		hideOperators();
@@ -257,10 +232,10 @@ $(function() {
 	// reset bubbles!
 	var reset = (function () {
 		var bubbleOffset = [
-			{left: 460, top: 130},
-			{left: 625, top: 130},
-			{left: 460, top: 295},
-			{left: 625, top: 295}
+			{left: 120, top: 40},
+			{left: 280, top: 40},
+			{left: 120, top: 220},
+			{left: 280, top: 220}
 		];
 
 		// hide other bubbles
@@ -270,6 +245,7 @@ $(function() {
 		}
 		var dom = $("#bubble-x");
 		if (dom) dom.remove();
+		hideOperators();
 
 		// setup the 4 main bubbles
 		var numbers;
@@ -278,18 +254,22 @@ $(function() {
 		} else {
 			numbers = game.restart();
 		}
+		var offset = $('.game-arena').offset();
 		for (var i = 0; i < 4; ++i) {
 			var bubble = $("#bubble-" + i);
 			bubble.show();
-			bubble.offset(bubbleOffset[i]);
+			bubble.offset({
+				left: offset.left + bubbleOffset[i].left,
+				top: offset.top + bubbleOffset[i].top
+			});
 			bubble.text(numbers[i]);
 		}
 
 		// set timer
 		var timer = setInterval(function() {
 			var timeLeft = game.getTimeLeft();
-			$('#timer').text(timeLeft);
-			$('#level').text("Level " + game.getLevel());
+			$('#timer').text((timeLeft < 10 ? "0" : "") + timeLeft);
+			$('#score').text(game.getScore());
 			if (game.over()) {
 				alert("answer = " + game.getAnswer());
 				reset();
@@ -302,23 +282,16 @@ $(function() {
 	$('#no-solution').click(function() {
 		game.guessUnsolved();
 	});
-
-
-	// $('#generate').click(function() {
-	// 	game.generate();
-	// 	$('input').each(function(i, e) {
-	// 		$(e).val(game.numbers[i]);
-	// 	});
-	// });
-	// $('#check').click(function() {
-	// 	$('input').each(function(i, e) {
-	// 		game.numbers[i] = $(e).val();
-	// 	});
-	// 	var result = game.check();
-	// 	alert(JSON.stringify(result));
-	// });
-
 });
 	</script>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-63682221-1', 'auto');
+  ga('send', 'pageview');
+  	</script>
 </body>
 </html>
