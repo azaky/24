@@ -92,7 +92,7 @@ var Game = function(args) {
 									possibilities.push({
 										value: dp2.value / dp1.value,
 										expr: (dp2.last === "+-" ? "(" : "") + dp2.expr + (dp2.last === "+-" ? ")" : "") +
-												" / " + (!dp1.last ? "(" : "") + dp1.expr + (!dp1.last ? ")" : ""),
+												" / " + (dp1.last ? "(" : "") + dp1.expr + (dp1.last ? ")" : ""),
 										last: "x/"
 									});
 								}
@@ -174,7 +174,10 @@ var Game = function(args) {
 			value = n1 * n2;
 			break;
 		case '/':
-			if (Math.abs(n2) < epsilon) return;
+			if (Math.abs(n2) < epsilon) {
+				// division by zero
+				return;
+			}
 			value = n1 / n2;
 			break;
 		default:
@@ -183,18 +186,17 @@ var Game = function(args) {
 		}
 
 		// calculate proper representation
-		rep = value;
-		if (Math.abs(Math.round(rep) - rep) > epsilon) {
+		rep = "" + Math.round(value);
+		if (Math.abs(Math.round(value) - value) > epsilon) {
 			// just brute force then
 			for (var den = 1; ; ++den) {
-				var num = den * rep;
+				var num = den * value;
 				if (Math.abs(Math.round(num) - num) < epsilon) {
 					rep = "" + Math.round(num) + "/" + den;
 					break;
 				}
 			}
 		}
-		rep = "" + rep;
 
 		bubbles.push({
 			i: last,
@@ -218,7 +220,7 @@ var Game = function(args) {
 			}
 		}
 		dfs(last);
-		if (mask === (1 << n) - 1 && value === goal) {
+		if (mask === (1 << n) - 1 && Math.abs(value - goal) < epsilon) {
 			solved = true;
 			clearInterval(timeStopper);
 		}
