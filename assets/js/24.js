@@ -149,7 +149,7 @@ var Game = function(args) {
 		if (this.over()) return;
 
 		// check whether both arguments still available
-		if (!args.lhs || !args.rhs || args.lhs === args.rhs || !bubbles[args.lhs] || !bubbles[args.rhs] || bubbles[args.lhs].used || bubbles[args.rhs].used) {
+		if (args.lhs === undefined || args.rhs === undefined || args.lhs === args.rhs || !bubbles[args.lhs] || !bubbles[args.rhs] || bubbles[args.lhs].used || bubbles[args.rhs].used) {
 			return;
 		}
 
@@ -166,6 +166,8 @@ var Game = function(args) {
 			value = n1 - n2;
 			break;
 		case '*':
+		case 'x':
+		case 'X':
 			value = n1 * n2;
 			break;
 		case '/':
@@ -173,6 +175,7 @@ var Game = function(args) {
 			value = n1 / n2;
 			break;
 		default:
+			alert("op = [" + args.op + "]");
 			return;
 		}
 

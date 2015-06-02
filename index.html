@@ -39,7 +39,7 @@
 	</style>
 </head>
 <body>
-	<div class="box">
+<!-- 	<div class="box">
 		<input type="number" name="i[]">
 		<input type="number" name="i[]">
 		<input type="number" name="i[]">
@@ -47,6 +47,18 @@
 		<button type="button" id="generate">Generate!</button>
 		<button type="button" id="check">Check!</button>
 	</div>
+ -->
+	<h1 id="timer">
+		0
+	</h1>
+
+	<h1 id="level">
+		0
+	</h1>
+
+	<button class="round" id="no-solution">
+		No Solution
+	</button>
 
 	<div class="arena">
 		<button class="round bubble" id="bubble-0" data-bubble="0">
@@ -65,19 +77,19 @@
 			4
 		</button>
 
-		<button class="round operator" id="add">
+		<button class="round operator" id="add" data-op="+">
 			+
 		</button>
 
-		<button class="round operator" id="subtract">
+		<button class="round operator" id="subtract" data-op="-">
 			-
 		</button>
 
-		<button class="round operator" id="multiply">
+		<button class="round operator" id="multiply" data-op="*">
 			x
 		</button>
 
-		<button class="round operator" id="divide">
+		<button class="round operator" id="divide" data-op="/">
 			/
 		</button>
 	</div>
@@ -148,15 +160,7 @@ $(function() {
 			}
 
 			var bubble = newBubble(lhs, rhs);
-			// ui.draggable.hide();
-			// $(this).text($(this).text() + " x " + ui.draggable.text());
-			// $('#add').offset($(this).offset()).css('opacity', 0);
-			// $('#add').animate({
-			// 	opacity: 1,
-			// 	display: 'block',
-			// 	left: '+=-50',
-			// 	top: '+=50'
-			// }, 500);
+
 			showOperators({
 				left: bubble.offset().left + bubble.width() / 2,
 				top: bubble.offset().top + bubble.height() / 2
@@ -194,7 +198,27 @@ $(function() {
 	$('body').on('click', '.operator', function() {
 		if (!activeOperand) return;
 
+		var lhs = activeOperand.lhs;
+		var rhs = activeOperand.rhs;
 
+		var result = game.marry({
+			lhs: lhs,
+			rhs: rhs,
+			op: $(this).data("op")
+		});
+
+		if (result === undefined) {
+			$("#bubble-x").trigger('dblclick');
+			return;
+		}
+
+		var dom = $("#bubble-x");
+		dom.data("bubble", result.i);
+		dom.text(result.value);
+		dom.attr("id", "bubble-" + result.i);
+
+		hideOperators();
+		activeOperand = null;
 	});
 
 	$('body').on('dblclick', '.bubble', function() {
@@ -230,16 +254,55 @@ $(function() {
 	$('.bubble').draggable(draggableOptions);
 	$('.bubble').droppable(droppableOptions);
 
-	// reposition bubbles!
-	var bubbleOffset = [
-		{left: 460, top: 130},
-		{left: 625, top: 130},
-		{left: 460, top: 295},
-		{left: 625, top: 295}
-	];
-	for (var i = 0; i < 4; ++i) {
-		$("#bubble-" + i).offset(bubbleOffset[i]);
-	}
+	// reset bubbles!
+	var reset = (function () {
+		var bubbleOffset = [
+			{left: 460, top: 130},
+			{left: 625, top: 130},
+			{left: 460, top: 295},
+			{left: 625, top: 295}
+		];
+
+		// hide other bubbles
+		for (var i = 4; i < 100; ++i) {
+			var dom = $("#bubble-" + i);
+			if (dom) dom.remove();
+		}
+		var dom = $("#bubble-x");
+		if (dom) dom.remove();
+
+		// setup the 4 main bubbles
+		var numbers;
+		if (game.win()) {
+			numbers = game.nextLevel();
+		} else {
+			numbers = game.restart();
+		}
+		for (var i = 0; i < 4; ++i) {
+			var bubble = $("#bubble-" + i);
+			bubble.show();
+			bubble.offset(bubbleOffset[i]);
+			bubble.text(numbers[i]);
+		}
+
+		// set timer
+		var timer = setInterval(function() {
+			var timeLeft = game.getTimeLeft();
+			$('#timer').text(timeLeft);
+			$('#level').text("Level " + game.getLevel());
+			if (game.over()) {
+				alert("answer = " + game.getAnswer());
+				reset();
+				clearInterval(timer);
+			}
+		}, 100);
+	});
+	reset();
+
+	$('#no-solution').click(function() {
+		game.guessUnsolved();
+	});
+
 
 	// $('#generate').click(function() {
 	// 	game.generate();
