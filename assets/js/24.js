@@ -41,7 +41,8 @@ var Game = function(args) {
 			if (bits.length === 1) {
 				dp[mask] = [{
 					value: numbers[bits[0]],
-					expr: numbers[bits[0]]
+					expr: numbers[bits[0]],
+					last: ""
 				}];
 			} else {
 				// The set that indicates the used values
@@ -66,32 +67,41 @@ var Game = function(args) {
 								var possibilities = [
 									{ // Addition
 										value: dp1.value + dp2.value,
-										expr: "(" + dp1.expr + ") + (" + dp2.expr + ")" 
+										expr: dp1.expr + " + " + dp2.expr + "",
+										last: "+-"
 									},
 									{ // Subtraction
 										value: dp1.value - dp2.value,
-										expr: "(" + dp1.expr + ") - (" + dp2.expr + ")" 
+										expr: dp1.expr + " - " + (dp2.last === "+-" ? "(" : "") + dp2.expr + (dp2.last === "+-" ? ")" : ""),
+										last: "+-"
 									},
 									{ // Subtraction
 										value: dp2.value - dp1.value,
-										expr: "(" + dp2.expr + ") - (" + dp1.expr + ")" 
+										expr: dp2.expr + " - " + (dp1.last === "+-" ? "(" : "") + dp1.expr + (dp1.last === "+-" ? ")" : ""),
+										last: "+-"
 									},
 									{ // Multiplication
 										value: dp1.value * dp2.value,
-										expr: "(" + dp1.expr + ") * (" + dp2.expr + ")" 
+										expr: (dp1.last === "+-" ? "(" : "") + dp1.expr + (dp1.last === "+-" ? ")" : "") +
+												" x " + (dp2.last === "+-" ? "(" : "") + dp2.expr + (dp2.last === "+-" ? ")" : ""),
+										last: "x/"
 									}];
 
 								// Special case for division, make sure the denominator is not zero
 								if (dp1.value) {
 									possibilities.push({
 										value: dp2.value / dp1.value,
-										expr: "(" + dp2.expr + ") / (" + dp1.expr + ")" 
+										expr: (dp2.last === "+-" ? "(" : "") + dp2.expr + (dp2.last === "+-" ? ")" : "") +
+												" / " + (!dp1.last ? "(" : "") + dp1.expr + (!dp1.last ? ")" : ""),
+										last: "x/"
 									});
 								}
 								if (dp2.value) {
 									possibilities.push({
 										value: dp1.value / dp2.value,
-										expr: "(" + dp1.expr + ") / (" + dp2.expr + ")" 
+										expr: (dp1.last === "+-" ? "(" : "") + dp1.expr + (dp1.last === "+-" ? ")" : "") +
+												" / " + (dp2.last ? "(" : "") + dp2.expr + (dp2.last ? ")" : ""),
+										last: "x/"
 									});
 								}
 

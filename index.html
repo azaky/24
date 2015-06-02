@@ -29,13 +29,13 @@
 				<div id="score" class="score">
 					0
 				</div>
-				<button class="share">
+				<button class="share" title="Share your score among your friends!">
 					Share!
 				</button>
 			</div>
 		</div>
 
-		<div class="game-arena">
+		<div class="game-arena" id="arena">
 			<button class="round bubble" id="bubble-0" data-bubble="0">
 				1
 			</button>
@@ -66,6 +66,38 @@
 
 			<button class="operator" id="divide" data-op="/">
 				/
+			</button>
+		</div>
+
+		<div class="game-menu" id="main-menu">
+			<div class="text">
+				Combine the numbers to get 24 using only basic operators (addition, subtraction, multiplication, and division)!<br>
+				Drag the numbers onto the others to combine, and double click on the combined numbers to undo.
+			</div>
+
+			<button class="button" id="play">
+				Play
+			</button>
+		</div>
+
+		<div class="game-menu" id="level-menu">
+			<div class="text">
+				Congratulation! You solved it!
+			</div>
+
+			<button class="button" id="next-level">
+				Next
+			</button>
+		</div>
+
+		<div class="game-menu" id="gameover-menu">
+			<div class="text">
+				Ah! That was close! BTW:
+				<div id="solution"></div>
+			</div>
+
+			<button class="button" id="restart">
+				Retry
 			</button>
 		</div>
 	</div>
@@ -170,6 +202,16 @@ $(function() {
 		return dom;
 	});
 
+	var changeMenu = (function(menu) {
+		// hide the others
+		$('.game-arena, .game-menu').hide();
+
+		// show it!
+		$('#' + menu).show();
+	});
+	// change to main menu
+	changeMenu("main-menu");
+
 	$('body').on('click', '.operator', function() {
 		if (!activeOperand) return;
 
@@ -247,7 +289,8 @@ $(function() {
 		if (dom) dom.remove();
 		hideOperators();
 
-		// setup the 4 main bubbles
+		// setup the 4 main bubbles and arena
+		changeMenu('arena');
 		var numbers;
 		if (game.win()) {
 			numbers = game.nextLevel();
@@ -271,16 +314,26 @@ $(function() {
 			$('#timer').text((timeLeft < 10 ? "0" : "") + timeLeft);
 			$('#score').text(game.getScore());
 			if (game.over()) {
-				alert("answer = " + game.getAnswer());
-				reset();
+				// alert("answer = " + game.getAnswer());
+				// reset();
 				clearInterval(timer);
+				if (game.win()) {
+					changeMenu('level-menu');
+				} else {
+					var answer = game.getAnswer();
+					$('#solution').text(answer ? "24 = " + answer : "24 cannot be obtained");
+					changeMenu('gameover-menu');
+				}
 			}
 		}, 100);
 	});
-	reset();
 
 	$('#no-solution').click(function() {
 		game.guessUnsolved();
+	});
+
+	$('#play, #next-level, #restart').on('click', function() {
+		reset();
 	});
 });
 	</script>

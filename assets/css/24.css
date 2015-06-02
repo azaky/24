@@ -93,3 +93,31 @@ body {
 	background-color: #003D19;
 	cursor: pointer;
 }
+
+.game-arena {
+	height: 300px;
+	display: none;
+}
+
+.game-menu {
+	text-align: center;
+	display: none;
+}
+
+.game-menu .text {
+	margin: 30px;
+}
+
+.game-menu button {
+	background-color: #036B2D;
+	color: #B9E8CC;
+	font-size: 42px;
+	padding: 24px 36px 24px 36px;
+	border-radius: 45px;
+	min-height: 90px;
+	border-width: 0;
+}
+.game-menu button:hover {
+	background-color: #003D19;
+	cursor: pointer;
+}
