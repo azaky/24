@@ -2,10 +2,10 @@ $(function() {
 	var game = new Game();
 	var operators = ['#add', '#subtract', '#multiply', '#divide'];
 	var offset = [
-		{left: -80, top: 50},
-		{left: -27, top: 70},
-		{left: +27, top: 70},
-		{left: +80, top: 50}
+		{left: -92, top: 50},
+		{left: -39, top: 70},
+		{left: +15, top: 70},
+		{left: +68, top: 50}
 	];
 	var activeOperand = null;
 
@@ -131,7 +131,11 @@ $(function() {
 		activeOperand = null;
 	});
 
-	$('body').on('dblclick', '.bubble', function() {
+	$('body').on('click', '.bubble', function() {
+		if ($(this).hasClass('active')) {
+			return;
+		}
+
 		var bubble = $(this).data("bubble");
 
 		if (!bubble || bubble === 'x') {
@@ -205,8 +209,13 @@ $(function() {
 		var timer = setInterval(function() {
 			var timeLeft = game.getTimeLeft();
 			$('#timer').text((timeLeft < 10 ? "0" : "") + timeLeft);
-			$('#score').text(game.getScore());
 			if (game.over()) {
+				var score = game.getScore();
+				$('#score').text(score);
+				var bestScore = parseInt($('#best-score').text());
+				if (score > bestScore) {
+					$('#best-score').text(score);
+				}
 				// alert("answer = " + game.getAnswer());
 				// reset();
 				clearInterval(timer);

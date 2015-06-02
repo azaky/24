@@ -77,7 +77,11 @@ button {
 	display: none;
 }
 
+#bubble-0, #bubble-1, #bubble-2, #bubble-3, #bubble-x {
+	text-decoration: none;
+}
 .round {
+	text-decoration: underline;
 	font-size: 28pt;
 	padding-left: 15px;
 	padding-right: 15px;
@@ -85,25 +89,27 @@ button {
 	width: auto;
 	min-width: 100px;
 	border-radius: 50px;
-	border-width: 0px;
+	border-width: 3px;
+	border-color: white;
 	position: absolute;
 	background-color: #69D2E7;
 	color: white;
-	-webkit-transition: color 0.4s, border-width 0.4s; /* Safari */
-    transition: color 0.4s, border-width 0.4s ease;
+	-webkit-transition: color 0.4s, border-color 0.4s; /* Safari */
+    transition: color 0.4s, border-color 0.4s ease;
 }
 .round:hover {
 	cursor: pointer;
 }
 
 .operator {
-	font-size: 14pt;
+	font-size: 20pt;
 	padding: 0;
 	position: absolute;
 	height: 50px;
 	width: auto;
 	min-width: 50px;
 	border-radius: 25px;
+	font-weight: bold;
 	background-color: #A7DBD8;
 	color: white;
 	/* initially, they are hidden */
@@ -118,9 +124,8 @@ button {
 .round.active {
 	color: #F38630;
 	border-color: #F38630;
-	border-width: 3px;
-	-webkit-transition: color 0.4s, border-width 0.4s; /* Safari */
-    transition: color 0.4s, border-width 0.4s ease;
+	-webkit-transition: color 0.4s, border-color 0.4s; /* Safari */
+    transition: color 0.4s, border-color 0.4s ease;
 }
 
 /* Game Menu */
