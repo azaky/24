@@ -78,7 +78,7 @@ $(function() {
 
 	var newBubble = (function(lhs, rhs) {
 		var dom = $("<button/>", {
-			"class": "round bubble",
+			"class": "bubble",
 			"id": "bubble-x",
 			"data-bubble": "x",
 			"data-bubble-lhs": lhs,
@@ -226,7 +226,7 @@ $(function() {
 					changeMenu('level-menu');
 				} else {
 					var answer = game.getAnswer();
-					$('#solution').text(answer ? "24 = " + answer : "24 cannot be obtained");
+					$('#solution').text(answer ? "24 = " + answer : "Unsolvable");
 					changeMenu('gameover-menu');
 				}
 			}
