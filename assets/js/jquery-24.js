@@ -1,16 +1,16 @@
 $(function() {
 	var game = new Game();
 	var operators = ['#add', '#subtract', '#multiply', '#divide'];
-	var offset = [
-		{left: -92, top: 50},
-		{left: -39, top: 70},
-		{left: +15, top: 70},
-		{left: +68, top: 50}
-	];
 	var activeOperand = null;
 
 	var showOperators = (function(position) {
 		var above = position.top > 500;
+		var offset = [
+			{left: -120, top: 50},
+			{left: -40, top: 70},
+			{left: +40, top: 70},
+			{left: +120, top: 50}
+		];
 		$.each(operators, function(i, e) {
 			$(e).show()
 			.offset(position)

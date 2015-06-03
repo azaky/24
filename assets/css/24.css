@@ -2,10 +2,6 @@
 @import url("http://fonts.googleapis.com/css?family=Lato:100");
 
 /* Global layout */
-* {
-	/*box-sizing: border-box;*/
-}
-
 html {
 	font-family: sans-serif;
 }
@@ -73,22 +69,22 @@ button {
 
 /* Game Arena */
 .game-arena {
-	height: 400px;
+	height: 430px;
 	display: none;
 }
 
 #bubble-0, #bubble-1, #bubble-2, #bubble-3, #bubble-x {
 	text-decoration: none;
 }
-.round {
+.bubble {
 	text-decoration: underline;
-	font-size: 28pt;
-	padding-left: 15px;
-	padding-right: 15px;
-	height: 100px;
+	font-size: 36pt;
+	padding-left: 30px;
+	padding-right: 30px;
+	height: 120px;
 	width: auto;
-	min-width: 100px;
-	border-radius: 50px;
+	min-width: 120px;
+	border-radius: 60px;
 	border-width: 3px;
 	border-color: white;
 	position: absolute;
@@ -97,18 +93,18 @@ button {
 	-webkit-transition: color 0.4s, border-color 0.4s; /* Safari */
     transition: color 0.4s, border-color 0.4s ease;
 }
-.round:hover {
+.bubble:hover {
 	cursor: pointer;
 }
 
 .operator {
-	font-size: 20pt;
+	font-size: 36pt;
 	padding: 0;
 	position: absolute;
-	height: 50px;
+	height: 70px;
 	width: auto;
-	min-width: 50px;
-	border-radius: 25px;
+	min-width: 70px;
+	border-radius: 35px;
 	font-weight: bold;
 	background-color: #A7DBD8;
 	color: white;
@@ -121,7 +117,7 @@ button {
 	background-color: #69D2E7;
 }
 
-.round.active {
+.bubble.active {
 	color: #F38630;
 	border-color: #F38630;
 	-webkit-transition: color 0.4s, border-color 0.4s; /* Safari */
