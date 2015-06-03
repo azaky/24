@@ -362,7 +362,7 @@ var Game = function(args) {
 			timeLeft--;
 			if (timeLeft <= 0) {
 				timeLeft = 0;
-				that.finishGame(false);
+				finishGame(false);
 			}
 		}, 1000);
 
