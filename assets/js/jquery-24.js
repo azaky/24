@@ -133,12 +133,9 @@ $(function() {
 
 	$('body').on('click', '.bubble', function() {
 		if ($(this).hasClass('active')) {
-			alert("activia!");
 			return;
-		} else {
-			alert("ga active kok ._.");
 		}
-
+		
 		var bubble = $(this).data("bubble");
 
 		if (!bubble || bubble === 'x') {
