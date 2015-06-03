@@ -4,9 +4,27 @@
 	<meta charset="UTF-8">
 	<title>24</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/24.css">
-    <link rel="shorcut icon" href="favicon.ico">
+	<link rel="shorcut icon" href="favicon.ico">
 </head>
 <body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '860866040655001',
+      xfbml      : true,
+      version    : 'v2.3'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 	<div class="container">
 		<div class="game-info">
 			<div class="pull-left">

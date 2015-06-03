@@ -53,7 +53,7 @@ $(function() {
 			$(this).css('z-index', 0);
 		},
 		drag: function(e, ui) {
-			if (currentOperatorOffset) {
+			if (currentOperatorOffset && $(this).attr("id") === "bubble-x") {
 				var offset = {
 					left: $(this).offset().left + $(this).width() / 2,
 					top: $(this).offset().top + $(this).height() / 2
@@ -270,7 +270,11 @@ $(function() {
 	$('#best-score').text(game.getHighScore());
 
 	$('#share').on('click', function() {
-		var href = "http://www.facebook.com/sharer.php?s=100&p[title]=24&p[summary]=Test Aja&p[url]=http://azaky.github.io/24";
+		return false;
+		var href = "https://www.facebook.com/dialog/share?app_id=860866040655001&display=popup" + 
+				"&href=http://azaky.github.io/24" + 
+				"&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer" +
+				"&caption=Halo huba huba";
 		return !window.open(href, 'Facebook', 'width=640,height=300');
 	});
 });
