@@ -26,6 +26,13 @@ var Game = function(args) {
 		// The dp[mask] will contain an array, each of which will be an object containing
 		// the value and the expression.
 		var dp = [[]];
+		var countBrackets = (function(expr){
+			var ret = 0;
+			for (var i = 0; i < expr.length; ++i) {
+				if (expr[i] === '(' || expr[i] === ')') ret++;
+			}
+			return ret;
+		});
 
 		// Fill the table in a bottom-up fashion
 		for (var mask = 1; mask < (1 << n); ++mask) {
@@ -107,9 +114,10 @@ var Game = function(args) {
 
 								// Perform check on all of them
 								for (var k = 0; k < possibilities.length; ++k) {
-									if (!used[possibilities[k].value]) {
-										used[possibilities[k].value] = true;
-										temp.push(possibilities[k]);
+									var brackets = countBrackets(possibilities[k].expr);
+									if (!used[possibilities[k].value] || used[possibilities[k].value].brackets > brackets) {
+										used[possibilities[k].value] = possibilities[k];
+										used[possibilities[k].value].brackets = brackets;
 									}
 								}
 							}
@@ -118,17 +126,35 @@ var Game = function(args) {
 				}
 
 				// Insert it into dp table
-				if (temp.length) dp[mask] = temp;
+				dp[mask] = [];
+				for (key in used) {
+					if (used.hasOwnProperty(key)) {
+						dp[mask].push(used[key]);
+					}
+				}
 			}
 		}
 
 		// Finally, check if goal can be achieved using all numbers
 		var _answer = [];
 		var goalmask = (1 << n) - 1;
+		var minBrackets = n * 2;
+		var iminBrackets = 0;
 		for (var i = 0; i < dp[goalmask].length; ++i) {
 			if (Math.abs(dp[goalmask][i].value - goal) < epsilon) {
 				_answer.push(dp[goalmask][i]);
+				var curBrackets = countBrackets(dp[goalmask][i].expr);
+				if (curBrackets < minBrackets) {
+					iminBrackets = _answer.length - 1;
+					minBrackets = curBrackets;
+				}
 			}
+		}
+		// move one with min brackets to front
+		if (_answer.length) {
+			var temp = _answer[0];
+			_answer[0] = _answer[iminBrackets];
+			_answer[iminBrackets] = temp;
 		}
 		return _answer;
 	});
