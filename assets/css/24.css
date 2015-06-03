@@ -133,7 +133,8 @@ button {
 }
 
 .game-menu .text {
-	margin: 15px;
+	margin: 30px;
+	font-size: 20px;
 }
 
 .game-menu button {

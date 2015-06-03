@@ -172,9 +172,9 @@ $(function() {
 	var reset = (function () {
 		var bubbleOffset = [
 			{left: 120, top: 50},
-			{left: 280, top: 50},
-			{left: 120, top: 230},
-			{left: 280, top: 230}
+			{left: 260, top: 50},
+			{left: 120, top: 190},
+			{left: 260, top: 190}
 		];
 
 		// hide other bubbles
