@@ -56,7 +56,7 @@ $(function() {
 
 			// if there's active operand separate them
 			if (activeOperand !== null) {
-				$('#bubble-x').trigger('dblclick');
+				$('#bubble-x').trigger('click');
 			}
 
 			var bubble = newBubble(lhs, rhs);
@@ -118,7 +118,7 @@ $(function() {
 		});
 
 		if (result === undefined) {
-			$("#bubble-x").trigger('dblclick');
+			$("#bubble-x").trigger('click');
 			return;
 		}
 
