@@ -205,19 +205,17 @@ $(function() {
 			bubble.text(numbers[i]);
 		}
 
+		// Reset score
+		$('#score').text(game.getScore());
+
 		// set timer
 		var timer = setInterval(function() {
 			var timeLeft = game.getTimeLeft();
 			$('#timer').text((timeLeft < 10 ? "0" : "") + timeLeft);
 			if (game.over()) {
-				var score = game.getScore();
-				$('#score').text(score);
-				var bestScore = parseInt($('#best-score').text());
-				if (score > bestScore) {
-					$('#best-score').text(score);
-				}
-				// alert("answer = " + game.getAnswer());
-				// reset();
+				$('#score').text(game.getScore());
+				$('#best-score').text(game.getHighScore());
+
 				clearInterval(timer);
 				if (game.win()) {
 					changeMenu('level-menu');
@@ -241,4 +239,11 @@ $(function() {
 	$('#home').on('click', function() {
 		changeMenu('main-menu');
 	})
+
+	$('#best-score').text(game.getHighScore());
+
+	$('#share').on('click', function() {
+		var href = "http://www.facebook.com/sharer.php?s=100&p[title]=24&p[summary]=Test Aja&p[url]=http://azaky.github.io/24";
+		return !window.open(href, 'Facebook', 'width=640,height=300');
+	});
 });

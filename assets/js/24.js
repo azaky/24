@@ -9,7 +9,7 @@ var Game = function(args) {
 	var goal = args && args.goal || 24;
 	var n = args && args.n || 4;
 	var maxNumber = args && args.maxNumber || 10;
-	var epsilon = 1e-5;
+	var epsilon = 1e-7;
 
 	var answer = false, solved = false, fail = false;
 	var bubbles = [];
@@ -17,6 +17,39 @@ var Game = function(args) {
 
 	var level = 0;
 	var timeLeft = 0, timeStopper;
+
+	// Dummy storage if browser doesn't support it
+	var storage = {
+		_data: {},
+
+		setItem: function (id, val) {
+			return this._data[id] = String(val);
+		},
+
+		getItem: function (id) {
+			return this._data.hasOwnProperty(id) ? this._data[id] : undefined;
+		},
+
+		removeItem: function (id) {
+			return delete this._data[id];
+		},
+
+		clear: function () {
+			return this._data = {};
+		}
+	};
+	storage = (function() {
+		var testKey = "test";
+		var _storage = window.localStorage;
+
+		try {
+			_storage.setItem(testKey, "1");
+			_storage.removeItem(testKey);
+			return _storage;
+		} catch (error) {
+			return storage;
+		}
+	}());
 
 	var that = this;
 
@@ -173,6 +206,24 @@ var Game = function(args) {
 		}
 	});
 
+	// Finish game, the argument is the outcome
+	var finishGame = (function(result) {
+		if (result) {
+			solved = true;
+		} else {
+			fail = true;
+		}
+		clearInterval(timeStopper);
+
+		// update high score
+		var highScore = storage.getItem("highScore");
+		var curScore = that.getScore();
+		if (highScore === null || curScore > highScore) {
+			highScore = curScore;
+		}
+		storage.setItem("highScore", highScore);
+	});
+
 	// Action taken when two bubbles are combined: "Marry" them.
 	this.marry = function(args) {
 		if (this.over()) return;
@@ -247,8 +298,7 @@ var Game = function(args) {
 		}
 		dfs(last);
 		if (mask === (1 << n) - 1 && Math.abs(value - goal) < epsilon) {
-			solved = true;
-			clearInterval(timeStopper);
+			finishGame(true);
 		}
 
 		return bubbles[last];
@@ -312,8 +362,7 @@ var Game = function(args) {
 			timeLeft--;
 			if (timeLeft <= 0) {
 				timeLeft = 0;
-				fail = true;
-				clearInterval(timeStopper);
+				that.finishGame(false);
 			}
 		}, 1000);
 
@@ -324,16 +373,10 @@ var Game = function(args) {
 	// Guess if this level cannot be solved
 	this.guessUnsolved = function() {
 		if (!answer) {
-			solved = true;
-		} else {
-			fail = true;
-		}
-		// stop timer
-		clearInterval(timeStopper);
-
-		if (this.win()) {
+			finishGame(true);
 			return true;
 		} else {
+			finishGame(false);
 			return false;
 		}
 	}
@@ -372,6 +415,16 @@ var Game = function(args) {
 	// Get score
 	this.getScore = function() {
 		return level + (this.win() ? 0 : -1);
+	}
+
+	// Get high score
+	this.getHighScore = function() {
+		var highScore = storage.getItem("highScore");
+		if (highScore === null) {
+			highScore = 0;
+			storage.setItem("highScore", highScore);
+		}
+		return highScore;
 	}
 
 	// Get the answer IF the game is already over

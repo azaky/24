@@ -14,7 +14,7 @@
 				<div id="timer" class="score">
 					0
 				</div>
-				<button id="no-solution" class="no-solution" title="Click here if you think current combination will not obtain 24">
+				<button id="no-solution" title="Click here if you think current combination will not obtain 24">
 					Unsolvable?
 				</button>
 			</div>
@@ -30,7 +30,7 @@
 				<div id="score" class="score">
 					0
 				</div>
-				<button class="share" title="Share your score among your friends!">
+				<button id="share" title="Share your score among your friends!">
 					Share!
 				</button>
 			</div>
@@ -74,7 +74,7 @@
 			<div class="text">
 				Combine the numbers to get 24 using only basic arithmetic operators (+ - &times; &divide;)!
 				<br>
-				Drag the numbers onto the others to combine, and click on the combined numbers to undo.
+				Drag the numbers onto the others to combine, and click on the resulted numbers to undo.
 			</div>
 
 			<button class="button" id="play">
@@ -84,7 +84,7 @@
 
 		<div class="game-menu" id="level-menu">
 			<div class="text">
-				Great! You solved it!
+				Great! Well done!
 			</div>
 
 			<button class="button" id="next-level">
@@ -94,8 +94,8 @@
 
 		<div class="game-menu" id="gameover-menu">
 			<div class="text">
-				Ah! Game Over! Solution:
-				<div id="solution"></div>
+				Ah! Game Over! <br>
+				Solution: <span id="solution"></span>
 			</div>
 
 			<button class="button" id="restart">
