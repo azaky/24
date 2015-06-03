@@ -2,6 +2,7 @@ $(function() {
 	var game = new Game();
 	var operators = ['#add', '#subtract', '#multiply', '#divide'];
 	var activeOperand = null;
+	var currentOperatorOffset = null;
 
 	var showOperators = (function(position) {
 		var above = position.top > 500;
@@ -11,14 +12,25 @@ $(function() {
 			{left: +40, top: 70},
 			{left: +120, top: 50}
 		];
+		currentOperatorOffset = [];
+		for (var i = 0; i < 4; ++i) {
+			var temp = {
+				left: offset[i].left,
+				top: offset[i].top
+			}
+			if (above) {
+				temp.top = offset[i].top + $(operators[i]).height();
+			}
+			currentOperatorOffset.push(temp);
+		}
 		$.each(operators, function(i, e) {
 			$(e).show()
 			.offset(position)
 			.css('opacity', 0)
 			.animate({
 				opacity: 1,
-				left: '+=' + offset[i].left,
-				top: above ? '-=' + (offset[i].top + $(e).height()) : '+=' + offset[i].top,
+				left: '+=' + currentOperatorOffset[i].left,
+				top: '+=' + currentOperatorOffset[i].top,
 			}, 200);
 		});
 	});
@@ -28,6 +40,7 @@ $(function() {
 			$(e).hide();
 		});
 		activeOperand = null;
+		currentOperatorOffset = null;
 	});
 
 	var draggableOptions = {
@@ -38,6 +51,20 @@ $(function() {
 		},
 		stop: function(e, ui) {
 			$(this).css('z-index', 0);
+		},
+		drag: function(e, ui) {
+			if (currentOperatorOffset) {
+				var offset = {
+					left: $(this).offset().left + $(this).width() / 2,
+					top: $(this).offset().top + $(this).height() / 2
+				};
+				$.each(operators, function(i, e) {
+					$(e).offset({
+						left: offset.left + currentOperatorOffset[i].left,
+						top: offset.top + currentOperatorOffset[i].top
+					});
+				});
+			}
 		}
 	};
 
