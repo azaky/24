@@ -286,11 +286,15 @@ $(function() {
 	$('#best-score').text(game.getHighScore());
 
 	$('#share').on('click', function() {
-		return false;
-		var href = "https://www.facebook.com/dialog/share?app_id=860866040655001&display=popup" + 
-				"&href=http://azaky.github.io/24" + 
-				"&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer" +
-				"&caption=Halo huba huba";
-		return !window.open(href, 'Facebook', 'width=640,height=300');
+		FB.ui({
+		  method: 'feed',
+		  link: 'http://azaky.github.io/24',
+		  caption: 'I got ' + game.getScore() + ' points on 24! http://azaky.github.io/24',
+		}, function(response){});
+		// var href = "https://www.facebook.com/dialog/share?app_id=860866040655001&display=popup" + 
+		// 		"&href=http://azaky.github.io/24" + 
+		// 		"&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer" +
+		// 		"&caption=Halo huba huba";
+		// return !window.open(href, 'Facebook', 'width=640,height=300');
 	});
 });

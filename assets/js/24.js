@@ -372,6 +372,9 @@ var Game = function(args) {
 
 	// Guess if this level cannot be solved
 	this.guessUnsolved = function() {
+		if (this.over()) {
+			return;
+		}
 		if (!answer) {
 			finishGame(true);
 			return true;
