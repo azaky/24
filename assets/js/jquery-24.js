@@ -4,6 +4,11 @@ $(function() {
 	var activeOperand = null;
 	var currentOperatorOffset = null;
 
+	var scale = $(".container").width() === 500 ? 1 : 0.65;
+	$(window).resize(function() {
+		scale = $(".container").width() === 500 ? 1 : 0.65;
+	});
+
 	var showOperators = (function(position) {
 		var above = position.top > 500;
 		var offset = [
@@ -21,6 +26,8 @@ $(function() {
 			if (above) {
 				temp.top = offset[i].top + $(operators[i]).height();
 			}
+			temp.left *= scale;
+			temp.top *= scale;
 			currentOperatorOffset.push(temp);
 		}
 		$.each(operators, function(i, e) {
@@ -178,11 +185,11 @@ $(function() {
 			$("#bubble-" + rhs).show();
 			// TODO: place them accordingly
 			$("#bubble-" + lhs).offset({
-				left: $(this).offset().left - 60,
+				left: $(this).offset().left - 60 * scale,
 				top: $(this).offset().top
 			});
 			$("#bubble-" + rhs).offset({
-				left: $(this).offset().left + 60,
+				left: $(this).offset().left + 60 * scale,
 				top: $(this).offset().top
 			});
 
@@ -203,6 +210,15 @@ $(function() {
 			{left: 120, top: 190},
 			{left: 260, top: 190}
 		];
+
+		if (scale !== 1) {
+			bubbleOffset = [
+				{left: 50, top: 50},
+				{left: 150, top: 50},
+				{left: 50, top: 150},
+				{left: 150, top: 150}
+			];
+		}
 
 		// hide other bubbles
 		for (var i = 4; i < 100; ++i) {
@@ -238,7 +254,7 @@ $(function() {
 		// set timer
 		var timer = setInterval(function() {
 			var timeLeft = game.getTimeLeft();
-			$('#timer').text((timeLeft < 10 ? "0" : "") + timeLeft);
+			$('#timer').text(timeLeft);
 			if (game.over()) {
 				$('#score').text(game.getScore());
 				$('#best-score').text(game.getHighScore());

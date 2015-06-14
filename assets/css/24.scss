@@ -1,0 +1,276 @@
+@import "helpers";
+
+/* colors */
+$background-color		: #E0E4CC;
+$game-background-color	: white;
+$gameinfo-color			: #FA6900;
+$gameinfo-light-color	: lighten($gameinfo-color, 15%);
+$gameinfo-dark-color	: darken($gameinfo-color, 15%);
+$gamearena-color		: #69D2E7;
+$gamearena-light-color	: lighten($gamearena-color, 15%);
+$gamearena-dark-color	: darken($gamearena-color, 15%);
+
+$bubble-color			: $gamearena-light-color;
+$bubble-hover-color		: $gamearena-color;
+$bubble-active-color	: $gamearena-dark-color;
+$bubble-border-color	: $gameinfo-color;
+
+/* fonts */
+$global-font			: "Open sans";
+$logo-font				: Lato;
+
+/* default sizes */
+$gamearena-width		: 500px;
+$gamearena-height		: 400px;
+$gamearena-width-small	: 280px;
+$gamearena-height-small	: 300px;
+$mobile-threshold		: $gamearena-width + 20px;
+
+/* Import fonts */
+@import "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700";
+@import "http://fonts.googleapis.com/css?family=Lato:100";
+
+/* Global layout */
+body {
+	font-family: $global-font;
+	background-color: $background-color;
+	margin: 0px;
+}
+button {
+	outline: none;
+}
+
+/* Container */
+.container {
+	width: $gamearena-width;
+	min-height: 100vh; /* 100% of vertical height */
+	overflow: hidden;
+	margin: 0px auto;
+	background-color: $game-background-color;
+
+	@include smaller($mobile-threshold) {
+		width: $gamearena-width-small;
+	}
+}
+
+/* Game Info */
+.game-info {
+	font-size: 14px;
+	text-align: center;
+	padding-bottom: 15px;
+	padding-top: 5px;
+	margin-top: 20px;
+	display: block;
+	color: $gameinfo-color;
+	overflow: hidden;
+
+	@include smaller($mobile-threshold) {
+		font-size: 10px;
+		margin-top: 10px;
+	}
+
+	.pull-left, .center, .pull-right {
+		width: (100% / 3);
+		float: left;
+	}
+
+	button {
+		background-color: $gameinfo-light-color;
+		color: white;
+		font-size: 14px;
+		padding: 8px 12px 8px 12px;
+		border-radius: 15px;
+		min-height: 30px;
+		border-width: 0;
+
+		&:hover {
+			background-color: #FA6900;
+			cursor: pointer;
+		}
+
+		@include smaller($mobile-threshold) {
+			font-size: 10px;
+			padding: 6px 6px 6px 6px;
+			border-radius: 10px;
+			min-height: 20px;
+		}
+	}
+
+	.score {
+		font-size: 60px;
+
+		@include smaller($mobile-threshold) {
+			font-size: 36px;
+		}
+	}
+
+	.logo {
+		font-family: $logo-font;
+		font-size: 120px;
+		text-align: center;
+
+		@include smaller($mobile-threshold) {
+			font-size: 72px;
+		}
+	}
+
+	a {
+		color: $gameinfo-color;
+		&:hover, &:active {
+			color: $gameinfo-color;
+		}
+	}
+}
+
+/* Game Arena */
+.game-arena {
+	height: $gamearena-height;
+	display: none;
+
+	border-bottom-color: $gamearena-light-color;
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	border-top-color: $gamearena-light-color;
+	border-top-width: 3px;
+	border-top-style: solid;
+
+	@include smaller($mobile-threshold) {
+		height: $gamearena-height-small;
+	}
+}
+
+#bubble-0, #bubble-1, #bubble-2, #bubble-3, #bubble-x {
+	text-decoration: none;
+}
+.bubble {
+	text-decoration: underline;
+	font-size: 36pt;
+	padding-left: 30px;
+	padding-right: 30px;
+	height: 120px;
+	width: auto;
+	min-width: 120px;
+	border-radius: 60px;
+	border-width: 3px;
+	border-color: white;
+	position: absolute;
+	background-color: $gamearena-color;
+	color: white;
+	@include transition(color 0.4s, border-color 0.4s ease);
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&.active {
+		color: #F38630;
+		border-color: #F38630;
+		-webkit-transition: color 0.4s, border-color 0.4s; /* Safari */
+	    transition: color 0.4s, border-color 0.4s ease;
+	}
+
+
+	@include smaller($mobile-threshold) {
+		font-size: 30px;
+		padding-left: 20px;
+		padding-right: 20px;
+		height: 80px;
+		min-width: 80px;
+		border-radius: 40px;
+	}
+}
+
+.operator {
+	font-size: 36pt;
+	padding: 0;
+	position: absolute;
+	height: 70px;
+	width: auto;
+	min-width: 70px;
+	border-radius: 35px;
+	font-weight: bold;
+	background-color: $gamearena-light-color;
+	color: white;
+	/* initially, they are hidden */
+	display: none;
+	z-index: 1001;
+
+	@include smaller($mobile-threshold) {
+		font-size: 24px;
+		height: 50px;
+		min-width: 50px;
+		border-radius: 25px;
+	}
+
+	&:hover {
+		cursor: pointer;
+		background-color: $gamearena-color;
+	}
+	&:active {
+		background-color: $gamearena-dark-color;
+	}
+}
+
+/* Game Menu */
+.game-menu {
+	text-align: center;
+	vertical-align: middle;
+	display: none;
+	color: #16BEFA;
+
+	height: $gamearena-height;
+	border-bottom-color: $gamearena-light-color;
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	border-top-color: $gamearena-light-color;
+	border-top-width: 3px;
+	border-top-style: solid;
+
+	@include smaller($mobile-threshold) {
+		height: $gamearena-height-small;
+	}
+
+	.text {
+		margin: 30px;
+		font-size: 20px;
+
+		@include smaller($mobile-threshold) {
+			margin: 20px;
+			font-size: 12px;
+		}
+	}
+
+	button {
+		background-color: $gamearena-light-color;
+		color: white;
+		font-size: 42px;
+		width: 200px;
+		padding: 24px 36px 24px 36px;
+		margin: 15px;
+		border-radius: 45px;
+		min-height: 90px;
+		border-width: 0;
+
+		&:hover {
+			background-color: $gamearena-color;
+			cursor: pointer;
+		}
+
+		&:active {
+			background-color: $gamearena-dark-color;
+		}
+
+		@include smaller($mobile-threshold) {
+			font-size: 30px;
+			width: 140px;
+			padding: 12px 18px 12px 18px;
+			margin: 10px;
+			border-radius: 30px;
+			min-height: 60px;
+		}
+	}
+}
+
+.footer {
+	margin-left: 20px;
+}
