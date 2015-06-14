@@ -12,7 +12,7 @@ $gamearena-dark-color	: darken($gamearena-color, 15%);
 
 $bubble-color			: $gamearena-light-color;
 $bubble-hover-color		: $gamearena-color;
-$bubble-active-color	: $gamearena-dark-color;
+$bubble-active-color	: darken($bubble-hover-color, 5%);
 $bubble-border-color	: $gameinfo-color;
 
 /* fonts */
@@ -55,7 +55,7 @@ button {
 
 /* Game Info */
 .game-info {
-	font-size: 14px;
+	font-size: 18px;
 	text-align: center;
 	padding-bottom: 15px;
 	padding-top: 5px;
@@ -84,7 +84,12 @@ button {
 		border-width: 0;
 
 		&:hover {
-			background-color: #FA6900;
+			background-color: $gameinfo-color;
+			cursor: pointer;
+		}
+
+		&:active {
+			background-color: $gameinfo-dark-color;
 			cursor: pointer;
 		}
 
@@ -154,17 +159,19 @@ button {
 	border-width: 3px;
 	border-color: white;
 	position: absolute;
-	background-color: $gamearena-color;
+	background-color: $bubble-color;
 	color: white;
 	@include transition(color 0.4s, border-color 0.4s ease);
 
 	&:hover {
+		background-color: $bubble-hover-color;
 		cursor: pointer;
 	}
 
-	&.active {
-		color: #F38630;
-		border-color: #F38630;
+	&.active, &:active {
+		color: $bubble-border-color;
+		border-color: $bubble-border-color;
+		background-color: $bubble-active-color;
 		-webkit-transition: color 0.4s, border-color 0.4s; /* Safari */
 	    transition: color 0.4s, border-color 0.4s ease;
 	}
