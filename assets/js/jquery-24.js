@@ -286,10 +286,14 @@ $(function() {
 	$('#best-score').text(game.getHighScore());
 
 	$('#share').on('click', function() {
+		var score = game.getScore();
+		if (score < 0) {
+			score = 0;
+		}
 		FB.ui({
 		  method: 'feed',
 		  link: 'http://azaky.github.io/24',
-		  caption: 'I got ' + game.getScore() + ' points on 24! http://azaky.github.io/24',
+		  caption: 'I got ' + score + ' points on 24! http://azaky.github.io/24',
 		}, function(response){});
 		// var href = "https://www.facebook.com/dialog/share?app_id=860866040655001&display=popup" + 
 		// 		"&href=http://azaky.github.io/24" + 
