@@ -1,0 +1,26 @@
+{
+  "name": "24",
+  "version": "1.0.0",
+  "description": "24 puzzle game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sonnylazuardi/24.git"
+  },
+  "keywords": [
+    "24"
+  ],
+  "author": "sonny and zaky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sonnylazuardi/24/issues"
+  },
+  "homepage": "https://github.com/sonnylazuardi/24",
+  "devDependencies": {
+    "gulp-sass": "^2.0.1",
+    "run-sequence": "^1.1.1"
+  }
+}

@@ -1,3 +1,7 @@
+document.addEventListener('deviceready', function() {
+	googleplaygame.auth();
+}, false);
+
 $(function() {
 	var game = new Game();
 	var operators = ['#add', '#subtract', '#multiply', '#divide'];

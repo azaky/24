@@ -1,1 +1,241 @@
-@import "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700";@import "http://fonts.googleapis.com/css?family=Lato:100";body{font-family:"Open sans";background-color:#E0E4CC;margin:0px}button{outline:none}.container{width:500px;min-height:100vh;overflow:hidden;margin:0px auto;background-color:#fff}@media screen and (max-width: 520px){.container{width:280px}}.game-info{font-size:18px;text-align:center;padding-bottom:15px;padding-top:5px;margin-top:20px;display:block;color:#FA6900;overflow:hidden}@media screen and (max-width: 520px){.game-info{font-size:10px;margin-top:10px}}.game-info .pull-left,.game-info .center,.game-info .pull-right{width:33.33333%;float:left}.game-info button{background-color:#ff9547;color:white;font-size:14px;padding:8px 12px 8px 12px;border-radius:15px;min-height:30px;border-width:0}.game-info button:hover{background-color:#FA6900;cursor:pointer}.game-info button:active{background-color:#ad4900;cursor:pointer}@media screen and (max-width: 520px){.game-info button{font-size:10px;padding:6px 6px 6px 6px;border-radius:10px;min-height:20px}}.game-info .score{font-size:60px}@media screen and (max-width: 520px){.game-info .score{font-size:36px}}.game-info .logo{font-family:Lato;font-size:120px;text-align:center}@media screen and (max-width: 520px){.game-info .logo{font-size:72px}}.game-info a{color:#FA6900}.game-info a:hover,.game-info a:active{color:#FA6900}.game-arena{height:400px;display:none;border-bottom-color:#abe6f2;border-bottom-width:3px;border-bottom-style:solid;border-top-color:#abe6f2;border-top-width:3px;border-top-style:solid}@media screen and (max-width: 520px){.game-arena{height:300px}}#bubble-0,#bubble-1,#bubble-2,#bubble-3,#bubble-x{text-decoration:none}.bubble{text-decoration:underline;font-size:36pt;padding-left:30px;padding-right:30px;height:120px;width:auto;min-width:120px;border-radius:60px;border-width:3px;border-color:white;position:absolute;background-color:#abe6f2;color:white;-webkit-transition:color 0.4s,border-color 0.4s ease;-moz-transition:color 0.4s,border-color 0.4s ease;transition:color 0.4s,border-color 0.4s ease}.bubble:hover{background-color:#69D2E7;cursor:pointer}.bubble.active,.bubble:active{color:#FA6900;border-color:#FA6900;background-color:#53cbe3;-webkit-transition:color 0.4s, border-color 0.4s;transition:color 0.4s, border-color 0.4s ease}@media screen and (max-width: 520px){.bubble{font-size:30px;padding-left:20px;padding-right:20px;height:80px;min-width:80px;border-radius:40px}}.operator{font-size:36pt;padding:0;position:absolute;height:70px;width:auto;min-width:70px;border-radius:35px;font-weight:bold;background-color:#abe6f2;color:white;display:none;z-index:1001}@media screen and (max-width: 520px){.operator{font-size:24px;height:50px;min-width:50px;border-radius:25px}}.operator:hover{cursor:pointer;background-color:#69D2E7}.operator:active{background-color:#27bedc}.game-menu{text-align:center;vertical-align:middle;display:none;color:#16BEFA;height:400px;border-bottom-color:#abe6f2;border-bottom-width:3px;border-bottom-style:solid;border-top-color:#abe6f2;border-top-width:3px;border-top-style:solid}@media screen and (max-width: 520px){.game-menu{height:300px}}.game-menu .text{margin:30px;font-size:20px}@media screen and (max-width: 520px){.game-menu .text{margin:20px;font-size:12px}}.game-menu button{background-color:#abe6f2;color:white;font-size:42px;width:200px;padding:24px 36px 24px 36px;margin:15px;border-radius:45px;min-height:90px;border-width:0}.game-menu button:hover{background-color:#69D2E7;cursor:pointer}.game-menu button:active{background-color:#27bedc}@media screen and (max-width: 520px){.game-menu button{font-size:30px;width:140px;padding:12px 18px 12px 18px;margin:10px;border-radius:30px;min-height:60px}}.footer{margin-left:20px}
+/* colors */
+/* fonts */
+/* default sizes */
+/* Import fonts */
+@font-face {
+  font-family: 'Gotham';
+  src: url("../fonts/GothamRnd-Medium.otf");
+  src: url("../fonts/GothamRnd-Medium.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-weight: normal; }
+
+@font-face {
+  font-family: 'GothamBold';
+  src: url("../fonts/GothamRnd-Bold.otf");
+  src: url("../fonts/GothamRnd-Bold.otf") format("opentype");
+  font-weight: 900;
+  font-style: bold;
+  font-weight: bold; }
+
+/* Global layout */
+body {
+  font-family: "Gotham";
+  background-color: #F2F3ED;
+  margin: 0px; }
+
+button {
+  outline: none; }
+
+/* Container */
+.container {
+  width: 500px;
+  min-height: 100vh;
+  /* 100% of vertical height */
+  overflow: hidden;
+  margin: 0px auto;
+  background-color: #F2F3ED; }
+  @media screen and (max-width: 520px) {
+    .container {
+      width: 280px; } }
+
+/* Game Info */
+.game-info {
+  font-size: 18px;
+  text-align: center;
+  padding-bottom: 15px;
+  padding-top: 5px;
+  margin-top: 20px;
+  display: block;
+  color: #00ABB1;
+  overflow: hidden; }
+  @media screen and (max-width: 520px) {
+    .game-info {
+      font-size: 12px;
+      margin-top: 40px; } }
+  .game-info .pull-left, .game-info .center, .game-info .pull-right {
+    width: 33.33333%;
+    float: left; }
+  .game-info button {
+    background-color: #FF6680;
+    color: white;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    min-height: 30px;
+    border-width: 0;
+    border-bottom-color: #ff1a40;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    font-family: "Gotham"; }
+    .game-info button:hover {
+      background-color: #ff8095;
+      cursor: pointer; }
+    .game-info button:active {
+      background-color: #FF6680;
+      cursor: pointer;
+      margin-top: 3px;
+      border-bottom-width: 2px; }
+    @media screen and (max-width: 520px) {
+      .game-info button {
+        font-size: 10px;
+        min-height: 20px; } }
+  .game-info .score {
+    font-size: 60px; }
+    @media screen and (max-width: 520px) {
+      .game-info .score {
+        font-size: 36px; } }
+  .game-info .logo {
+    font-family: "GothamBold";
+    color: #EFB273;
+    font-size: 120px;
+    text-align: center;
+    letter-spacing: -8px;
+    text-shadow: 0px 7px #eae7c0; }
+    @media screen and (max-width: 520px) {
+      .game-info .logo {
+        font-size: 60px;
+        margin-left: -10px; } }
+  .game-info a {
+    color: #00ABB1; }
+    .game-info a:hover, .game-info a:active {
+      color: #00ABB1; }
+
+/* Game Arena */
+.game-arena {
+  height: 400px;
+  display: none;
+  background: #CFE6DF;
+  height: 400px;
+  border-top-color: #BCD9D9;
+  border-top-width: 5px;
+  border-top-style: solid;
+  border-radius: 10px; }
+  @media screen and (max-width: 520px) {
+    .game-arena {
+      height: 300px; } }
+
+#bubble-0, #bubble-1, #bubble-2, #bubble-3, #bubble-x {
+  text-decoration: none; }
+
+.bubble {
+  text-decoration: underline;
+  font-size: 36pt;
+  padding-left: 30px;
+  padding-right: 30px;
+  height: 120px;
+  width: auto;
+  min-width: 120px;
+  border-radius: 60px;
+  box-shadow: 0px 10px 0px #BCD9D9;
+  border: none;
+  position: absolute;
+  background-color: #76d6ff;
+  color: white;
+  font-family: "GothamBold";
+  -webkit-transition: color 0.4s, border-color 0.4s ease, all 0.4s;
+  -moz-transition: color 0.4s, border-color 0.4s ease, all 0.4s;
+  transition: color 0.4s, border-color 0.4s ease, all 0.4s; }
+  .bubble:hover {
+    background-color: #EFB273;
+    cursor: pointer; }
+  .bubble.active, .bubble:active {
+    color: white;
+    border-color: #00ABB1;
+    background-color: #EFB273;
+    -webkit-transition: color 0.4s, border-color 0.4s;
+    /* Safari */
+    transition: color 0.4s, border-color 0.4s ease; }
+  @media screen and (max-width: 520px) {
+    .bubble {
+      font-size: 30px;
+      padding-left: 20px;
+      padding-right: 20px;
+      height: 80px;
+      min-width: 80px;
+      border-radius: 40px; } }
+
+.operator {
+  font-size: 36pt;
+  padding: 0;
+  position: absolute;
+  height: 70px;
+  width: auto;
+  min-width: 70px;
+  border-radius: 35px;
+  font-weight: bold;
+  background-color: #abe6f2;
+  color: white;
+  /* initially, they are hidden */
+  display: none;
+  z-index: 1001; }
+  @media screen and (max-width: 520px) {
+    .operator {
+      font-size: 24px;
+      height: 50px;
+      min-width: 50px;
+      border-radius: 25px; } }
+  .operator:hover {
+    cursor: pointer;
+    background-color: #69D2E7; }
+  .operator:active {
+    background-color: #27bedc; }
+
+/* Game Menu */
+.game-menu {
+  text-align: center;
+  vertical-align: middle;
+  display: none;
+  color: #00ABB1;
+  background: #CFE6DF;
+  height: 400px;
+  border-top-color: #BCD9D9;
+  border-top-width: 5px;
+  border-top-style: solid;
+  border-radius: 10px; }
+  @media screen and (max-width: 520px) {
+    .game-menu {
+      height: 300px; } }
+  .game-menu .text {
+    margin: 30px;
+    font-size: 18px;
+    margin-bottom: 10px; }
+    @media screen and (max-width: 520px) {
+      .game-menu .text {
+        margin: 20px;
+        font-size: 11px;
+        margin-bottom: 10px; } }
+  .game-menu button {
+    font-family: "GothamBold";
+    background-color: #FF6680;
+    color: white;
+    font-size: 24px;
+    width: 200px;
+    padding: 12px 18px;
+    margin: 15px;
+    border-radius: 45px;
+    min-height: 60px;
+    border-width: 0;
+    border-bottom-color: #ff1a40;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    margin-bottom: 0; }
+    .game-menu button:hover {
+      background-color: #69D2E7;
+      cursor: pointer; }
+    .game-menu button:active {
+      background-color: #27bedc;
+      margin-top: 13px;
+      border-bottom-width: 2px; }
+    @media screen and (max-width: 520px) {
+      .game-menu button {
+        font-size: 16px;
+        width: 140px;
+        padding: 12px 18px 12px 18px;
+        margin: 10px;
+        border-radius: 30px;
+        min-height: 30px;
+        margin-bottom: 0; } }
+
+.footer {
+  margin-left: 20px; }

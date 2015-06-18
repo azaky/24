@@ -1,23 +1,30 @@
 @import "helpers";
 
 /* colors */
-$background-color		: #E0E4CC;
-$game-background-color	: white;
-$gameinfo-color			: #FA6900;
+
+$background-color		: #F2F3ED;
+$game-background-color	: #F2F3ED;
+$gameinfo-color			: #00ABB1;
+$gameinfo-orange-color : #EFB273;
+$gameinfo-button-color : #FF6680;
+$gameinfo-button-light-color : lighten($gameinfo-button-color, 5%);
+$gameinfo-button-dark-color : darken($gameinfo-button-color, 15%);
 $gameinfo-light-color	: lighten($gameinfo-color, 15%);
 $gameinfo-dark-color	: darken($gameinfo-color, 15%);
 $gamearena-color		: #69D2E7;
 $gamearena-light-color	: lighten($gamearena-color, 15%);
 $gamearena-dark-color	: darken($gamearena-color, 15%);
+$gamearena-bg-color	: #CFE6DF;
+$gamearena-shadow-color	: #BCD9D9;
 
-$bubble-color			: $gamearena-light-color;
-$bubble-hover-color		: $gamearena-color;
-$bubble-active-color	: darken($bubble-hover-color, 5%);
+$bubble-color			: #76d6ff;
+$bubble-hover-color		: $gameinfo-orange-color;
+$bubble-active-color	: $gameinfo-orange-color;
 $bubble-border-color	: $gameinfo-color;
 
 /* fonts */
-$global-font			: "Open sans";
-$logo-font				: Lato;
+$global-font			: "Gotham";
+$logo-font				: "GothamBold";
 
 /* default sizes */
 $gamearena-width		: 500px;
@@ -27,8 +34,25 @@ $gamearena-height-small	: 300px;
 $mobile-threshold		: $gamearena-width + 20px;
 
 /* Import fonts */
-@import "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700";
-@import "http://fonts.googleapis.com/css?family=Lato:100";
+@font-face {
+  font-family: 'Gotham';
+  src: url('../fonts/GothamRnd-Medium.otf');
+  src: url('../fonts/GothamRnd-Medium.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'GothamBold';
+  src: url('../fonts/GothamRnd-Bold.otf');
+  src: url('../fonts/GothamRnd-Bold.otf') format('opentype');
+  font-weight: 900;
+  font-style: bold;
+  font-weight: bold;
+}
+
+
 
 /* Global layout */
 body {
@@ -65,8 +89,8 @@ button {
 	overflow: hidden;
 
 	@include smaller($mobile-threshold) {
-		font-size: 10px;
-		margin-top: 10px;
+		font-size: 12px;
+		margin-top: 40px;
 	}
 
 	.pull-left, .center, .pull-right {
@@ -75,28 +99,33 @@ button {
 	}
 
 	button {
-		background-color: $gameinfo-light-color;
+		background-color: $gameinfo-button-color;
 		color: white;
 		font-size: 14px;
-		padding: 8px 12px 8px 12px;
-		border-radius: 15px;
+		padding: 8px 12px;
+		border-radius: 5px;
 		min-height: 30px;
 		border-width: 0;
+		border-bottom-color: $gameinfo-button-dark-color;
+		border-bottom-width: 5px;
+		border-bottom-style: solid;
+		font-family: "Gotham";
+		
 
 		&:hover {
-			background-color: $gameinfo-color;
+			background-color: $gameinfo-button-light-color;
 			cursor: pointer;
 		}
 
 		&:active {
-			background-color: $gameinfo-dark-color;
+			background-color: $gameinfo-button-color;
 			cursor: pointer;
+			margin-top: 3px;
+			border-bottom-width: 2px;
 		}
 
 		@include smaller($mobile-threshold) {
 			font-size: 10px;
-			padding: 6px 6px 6px 6px;
-			border-radius: 10px;
 			min-height: 20px;
 		}
 	}
@@ -111,11 +140,14 @@ button {
 
 	.logo {
 		font-family: $logo-font;
+		color: $gameinfo-orange-color;
 		font-size: 120px;
 		text-align: center;
-
+		letter-spacing: -8px;
+		text-shadow: 0px 7px #eae7c0;
 		@include smaller($mobile-threshold) {
-			font-size: 72px;
+			font-size: 60px;
+			margin-left: -10px;
 		}
 	}
 
@@ -131,13 +163,13 @@ button {
 .game-arena {
 	height: $gamearena-height;
 	display: none;
+	background: $gamearena-bg-color;
 
-	border-bottom-color: $gamearena-light-color;
-	border-bottom-width: 3px;
-	border-bottom-style: solid;
-	border-top-color: $gamearena-light-color;
-	border-top-width: 3px;
+	height: $gamearena-height;
+	border-top-color: $gamearena-shadow-color;
+	border-top-width: 5px;
 	border-top-style: solid;
+	border-radius: 10px;
 
 	@include smaller($mobile-threshold) {
 		height: $gamearena-height-small;
@@ -156,12 +188,15 @@ button {
 	width: auto;
 	min-width: 120px;
 	border-radius: 60px;
-	border-width: 3px;
-	border-color: white;
+	// border-bottom-width: 10px;
+	// border-bottom-color: white;
+	box-shadow: 0px 10px 0px $gamearena-shadow-color;
+	border:none;
 	position: absolute;
 	background-color: $bubble-color;
 	color: white;
-	@include transition(color 0.4s, border-color 0.4s ease);
+	font-family: "GothamBold";
+	@include transition(color 0.4s, border-color 0.4s ease, all 0.4s);
 
 	&:hover {
 		background-color: $bubble-hover-color;
@@ -169,7 +204,10 @@ button {
 	}
 
 	&.active, &:active {
-		color: $bubble-border-color;
+		// width: 130px;
+		// height: 130px;
+		// border-radius: 70px;
+		color: white;
 		border-color: $bubble-border-color;
 		background-color: $bubble-active-color;
 		-webkit-transition: color 0.4s, border-color 0.4s; /* Safari */
@@ -223,15 +261,14 @@ button {
 	text-align: center;
 	vertical-align: middle;
 	display: none;
-	color: #16BEFA;
+	color: $gameinfo-color;
+	background: $gamearena-bg-color;
 
 	height: $gamearena-height;
-	border-bottom-color: $gamearena-light-color;
-	border-bottom-width: 3px;
-	border-bottom-style: solid;
-	border-top-color: $gamearena-light-color;
-	border-top-width: 3px;
+	border-top-color: $gamearena-shadow-color;
+	border-top-width: 5px;
 	border-top-style: solid;
+	border-radius: 10px;
 
 	@include smaller($mobile-threshold) {
 		height: $gamearena-height-small;
@@ -239,24 +276,31 @@ button {
 
 	.text {
 		margin: 30px;
-		font-size: 20px;
+		font-size: 18px;
+		margin-bottom: 10px;
 
 		@include smaller($mobile-threshold) {
 			margin: 20px;
-			font-size: 12px;
+			font-size: 11px;
+			margin-bottom: 10px;
 		}
 	}
 
 	button {
-		background-color: $gamearena-light-color;
+		font-family: "GothamBold";
+		background-color: $gameinfo-button-color;
 		color: white;
-		font-size: 42px;
+		font-size: 24px;
 		width: 200px;
-		padding: 24px 36px 24px 36px;
+		padding: 12px 18px;
 		margin: 15px;
 		border-radius: 45px;
-		min-height: 90px;
+		min-height: 60px;
 		border-width: 0;
+		border-bottom-color: $gameinfo-button-dark-color;
+		border-bottom-width: 5px;
+		border-bottom-style: solid;
+		margin-bottom: 0;
 
 		&:hover {
 			background-color: $gamearena-color;
@@ -265,15 +309,18 @@ button {
 
 		&:active {
 			background-color: $gamearena-dark-color;
+			margin-top: 13px;
+			border-bottom-width: 2px;
 		}
 
 		@include smaller($mobile-threshold) {
-			font-size: 30px;
+			font-size: 16px;
 			width: 140px;
 			padding: 12px 18px 12px 18px;
 			margin: 10px;
 			border-radius: 30px;
-			min-height: 60px;
+			min-height: 30px;
+			margin-bottom: 0;
 		}
 	}
 }
