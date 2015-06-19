@@ -196,7 +196,7 @@ button {
 	background-color: $bubble-color;
 	color: white;
 	font-family: "GothamBold";
-	@include transition(color 0.4s, border-color 0.4s ease, all 0.4s);
+	@include transition(color 0.4s, border-color 0.4s ease);
 
 	&:hover {
 		background-color: $bubble-hover-color;

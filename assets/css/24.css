@@ -133,9 +133,9 @@ button {
   background-color: #76d6ff;
   color: white;
   font-family: "GothamBold";
-  -webkit-transition: color 0.4s, border-color 0.4s ease, all 0.4s;
-  -moz-transition: color 0.4s, border-color 0.4s ease, all 0.4s;
-  transition: color 0.4s, border-color 0.4s ease, all 0.4s; }
+  -webkit-transition: color 0.4s, border-color 0.4s ease;
+  -moz-transition: color 0.4s, border-color 0.4s ease;
+  transition: color 0.4s, border-color 0.4s ease; }
   .bubble:hover {
     background-color: #EFB273;
     cursor: pointer; }
