@@ -6,7 +6,7 @@ Combine the numbers to get 24 using only basic arithmetic operators (+ - × ÷)!
 
 Drag the numbers onto the others to combine, and click on the resulted numbers to undo.
 
-![](https://raw.githubusercontent.com/azaky/24/gh-pages/assets/Capture.PNG)
+![](https://raw.githubusercontent.com/sonnylazuardi/24/gh-pages/assets/Capture.PNG)
 
 I once reached 18, but it was a luck. On average, I only get 5-6 points.
 
