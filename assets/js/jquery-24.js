@@ -1,7 +1,3 @@
-document.addEventListener('deviceready', function() {
-	googleplaygame.auth();
-}, false);
-
 $(function() {
 	var game = new Game();
 	var operators = ['#add', '#subtract', '#multiply', '#divide'];
@@ -288,12 +284,11 @@ $(function() {
 	})
 
 	$('#rate').on('click', function() {
-		AppRate.preferences.storeAppURL.android = 'market://details?id=com.sonnylab.twentyfour';
-		AppRate.promptForRating();
+		
 	})
 
 	$('#leaderboard').on('click', function() {
-		googleplaygame.showAllLeaderboards();
+		
 	})
 
 	$('#best-score').text(game.getHighScore());
@@ -303,17 +298,16 @@ $(function() {
 		if (score < 0) {
 			score = 0;
 		}
-		
-		window.plugins.socialsharing.share('I got ' + score + ' points on 24! http://bit.ly/24puzzle', '24 Puzzle Game!');
-		// FB.ui({
-		//   method: 'feed',
-		//   link: 'http://azaky.github.io/24',
-		//   caption: 'I got ' + score + ' points on 24! http://azaky.github.io/24',
-		// }, function(response){});
-		// var href = "https://www.facebook.com/dialog/share?app_id=860866040655001&display=popup" + 
-		// 		"&href=http://azaky.github.io/24" + 
-		// 		"&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer" +
-		// 		"&caption=Halo huba huba";
-		// return !window.open(href, 'Facebook', 'width=640,height=300');
+
+		FB.ui({
+		  method: 'feed',
+		  link: 'http://azaky.github.io/24',
+		  caption: 'I got ' + score + ' points on 24! http://azaky.github.io/24',
+		}, function(response){});
+		var href = "https://www.facebook.com/dialog/share?app_id=860866040655001&display=popup" + 
+				"&href=http://azaky.github.io/24" + 
+				"&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer" +
+				"&caption=Halo huba huba";
+		return !window.open(href, 'Facebook', 'width=640,height=300');
 	});
 });
