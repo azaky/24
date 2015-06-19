@@ -1,6 +1,8 @@
 # 24
 
-[http://azaky.github.io/24](http://azaky.github.io/24)
+[http://sonnylazuardi.github.io/24](http://sonnylazuardi.github.io/24)
+
+** original repo : [http://github.com/azaky/24](http://github.com/azaky/24) **
 
 Combine the numbers to get 24 using only basic arithmetic operators (+ - × ÷)! 
 
