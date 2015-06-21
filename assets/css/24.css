@@ -56,7 +56,7 @@ button {
   .game-info .pull-left, .game-info .center, .game-info .pull-right {
     width: 33.33333%;
     float: left; }
-  .game-info button {
+  .game-info button, .game-info a.button {
     background-color: #FF6680;
     color: white;
     font-size: 14px;
@@ -68,16 +68,16 @@ button {
     border-bottom-width: 5px;
     border-bottom-style: solid;
     font-family: "Gotham"; }
-    .game-info button:hover {
+    .game-info button:hover, .game-info a.button:hover {
       background-color: #ff8095;
       cursor: pointer; }
-    .game-info button:active {
+    .game-info button:active, .game-info a.button:active {
       background-color: #FF6680;
       cursor: pointer;
       margin-top: 3px;
       border-bottom-width: 2px; }
     @media screen and (max-width: 520px) {
-      .game-info button {
+      .game-info button, .game-info a.button {
         font-size: 10px;
         min-height: 20px; } }
   .game-info .score {
@@ -205,7 +205,7 @@ button {
         margin: 20px;
         font-size: 11px;
         margin-bottom: 10px; } }
-  .game-menu button {
+  .game-menu button, .game-menu a.button {
     font-family: "GothamBold";
     background-color: #FF6680;
     color: white;
@@ -220,15 +220,15 @@ button {
     border-bottom-width: 5px;
     border-bottom-style: solid;
     margin-bottom: 0; }
-    .game-menu button:hover {
+    .game-menu button:hover, .game-menu a.button:hover {
       background-color: #69D2E7;
       cursor: pointer; }
-    .game-menu button:active {
+    .game-menu button:active, .game-menu a.button:active {
       background-color: #27bedc;
       margin-top: 13px;
       border-bottom-width: 2px; }
     @media screen and (max-width: 520px) {
-      .game-menu button {
+      .game-menu button, .game-menu a.button {
         font-size: 16px;
         width: 140px;
         padding: 12px 18px 12px 18px;
@@ -239,3 +239,7 @@ button {
 
 .footer {
   margin-left: 20px; }
+
+a.download {
+  display: block;
+  margin: 15px auto !important; }

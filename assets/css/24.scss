@@ -98,7 +98,7 @@ button {
 		float: left;
 	}
 
-	button {
+	button, a.button {
 		background-color: $gameinfo-button-color;
 		color: white;
 		font-size: 14px;
@@ -286,7 +286,7 @@ button {
 		}
 	}
 
-	button {
+	button, a.button {
 		font-family: "GothamBold";
 		background-color: $gameinfo-button-color;
 		color: white;
@@ -327,4 +327,9 @@ button {
 
 .footer {
 	margin-left: 20px;
+}
+
+a.download {
+	display: block;
+	margin: 15px auto !important;
 }
