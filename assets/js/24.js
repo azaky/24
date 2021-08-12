@@ -329,6 +329,7 @@ var Game = function(args) {
 		}
 
 		// A little workaround so nextLevel won't return void
+		timeLeft = 0;
 		solved = true;
 		fail = false;
 
@@ -357,7 +358,7 @@ var Game = function(args) {
 		fail = false;
 
 		// run the timer
-		timeLeft = this.getTimeLimit();
+		timeLeft += this.getTimeAddition();
 		timeStopper = setInterval(function() {
 			timeLeft--;
 			if (timeLeft <= 0) {
@@ -399,10 +400,12 @@ var Game = function(args) {
 		return this.win() || this.lose();
 	}
 
-	// Get the time limit for current level
-	// TODO: tweak the formula
-	this.getTimeLimit = function() {
-		return Math.floor(100 / (level + 1)) + 10;
+	// Get the time addition for current level.
+	this.getTimeAddition = function() {
+		if (level === 1) {
+			return 60 - timeLeft;
+		}
+		return Math.ceil(30 / level);
 	}
 
 	// Get the time left for the current level
